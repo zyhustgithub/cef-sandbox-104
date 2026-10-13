@@ -1,0 +1,10 @@
+/*
+!/.gitignore
+!/README.md
+!/build-env.sh
+!/configure-local.py
+!/scripts/
+!/patches/
+!/records/
+__pycache__/
+*.pyc

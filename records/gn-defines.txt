@@ -1,0 +1,1 @@
+is_official_build=false is_component_build=false symbol_level=0 use_thin_lto=false target_cpu="arm64" enable_nacl=false mac_sdk_path="/Library/Developer/CommandLineTools/SDKs/MacOSX15.4.sdk" mac_deployment_target="12.0" mac_min_system_version="12.0" treat_warnings_as_errors=false clang_use_chrome_plugins=false cef_legacy_clang_modern_sdk=true
