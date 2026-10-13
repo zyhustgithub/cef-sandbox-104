@@ -1,0 +1,46 @@
+From ee9413170c23a4e0b363ccaa4379b8dfe2f2ca8b Mon Sep 17 00:00:00 2001
+From: zengyong <zengyong@niimbot.com>
+Date: Tue, 13 Oct 2026 09:32:40 +0800
+Subject: [PATCH] Package architecture-specific default V8 snapshots for macOS
+ universal frameworks
+
+---
+ BUILD.gn | 15 +++++++++++----
+ 1 file changed, 11 insertions(+), 4 deletions(-)
+
+diff --git a/BUILD.gn b/BUILD.gn
+index 4b17a4b..13b8dca 100644
+--- a/BUILD.gn
++++ b/BUILD.gn
+@@ -1513,6 +1513,16 @@ if (is_mac) {
+     ]
+   }
+ 
++  if (v8_use_external_startup_data) {
++    # Default snapshots are architecture-specific too. Keep both in a universal
++    # framework; gin selects the matching file at runtime.
++    bundle_data("cef_framework_v8_snapshot") {
++      sources = [ "$root_out_dir/snapshot_blob.bin" ]
++      outputs = [ "{{bundle_resources_dir}}/snapshot_blob.$target_cpu.bin" ]
++      public_deps = [ "//v8" ]
++    }
++  }
++
+   bundle_data("cef_framework_resources") {
+     sources = []
+     public_deps = []
+@@ -1523,10 +1533,7 @@ if (is_mac) {
+     }
+ 
+     if (v8_use_external_startup_data) {
+-      sources += [
+-        "$root_out_dir/snapshot_blob.bin",
+-      ]
+-      public_deps += [ "//v8" ]
++      public_deps += [ ":cef_framework_v8_snapshot" ]
+       if (use_v8_context_snapshot) {
+         sources += [ "$root_out_dir/$v8_context_snapshot_filename" ]
+         public_deps += [ "//tools/v8_context_snapshot" ]
+-- 
+2.54.0 (Apple Git-157)
+

@@ -14,14 +14,21 @@ def main():
     parser.add_argument('--root', type=Path, default=Path(os.environ.get(
         'CEF_BUILD_ROOT', str(Path(__file__).resolve().parents[1]))))
     parser.add_argument('--jobs', type=int, default=8)
+    parser.add_argument('--out', default='Release_GN_arm64',
+                        help='Configured directory name beneath chromium/src/out')
     args = parser.parse_args()
+    if Path(args.out).name != args.out or args.out in ('.', '..'):
+        parser.error('--out must be a directory name')
     if args.jobs < 1:
         parser.error('--jobs must be positive')
     root = args.root.resolve()
     state = root / 'state'
     if not (state / '06-configure.done').exists():
         parser.error('Configure stage must complete first')
-    with (state / 'framework-build.lock').open('w') as lock:
+    suffix = '' if args.out == 'Release_GN_arm64' else '-' + args.out
+    if not (root / 'chromium/src/out' / args.out / 'build.ninja').exists():
+        parser.error('Run gn gen for the requested output first')
+    with (state / ('framework-build' + suffix + '.lock')).open('w') as lock:
         try:
             fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
         except BlockingIOError:
@@ -35,10 +42,10 @@ def main():
         env['PATH'] = str(root / 'depot_tools') + os.pathsep + env['PATH']
         env['DEPOT_TOOLS_UPDATE'] = '0'
         env['GCLIENT_PY3'] = '1'
-        log_path = root / 'logs' / 'libcef-build.log'
-        status_path = state / 'framework-build.json'
+        log_path = root / 'logs' / ('libcef-build' + suffix + '.log')
+        status_path = state / ('framework-build' + suffix + '.json')
         status = {'state': 'running', 'started_at': time.time(),
-                  'log': str(log_path), 'jobs': args.jobs}
+                  'log': str(log_path), 'jobs': args.jobs, 'out': args.out}
 
         def save():
             tmp = status_path.with_suffix('.tmp')
@@ -53,7 +60,7 @@ def main():
                 log.flush()
                 code = subprocess.call([
                     str(root / 'depot_tools' / 'ninja'), '-C',
-                    'out/Release_GN_arm64', 'cef_framework', '-j', str(args.jobs)
+                    'out/' + args.out, 'cef_framework', '-j', str(args.jobs)
                 ], cwd=root / 'chromium' / 'src', env=env,
                    stdout=log, stderr=subprocess.STDOUT)
         except BaseException:
@@ -64,7 +71,7 @@ def main():
                       exit_code=code, finished_at=time.time())
         save()
         if code == 0:
-            (state / '07-framework-build.done').touch()
+            (state / ('07-framework-build' + suffix + '.done')).touch()
         raise SystemExit(code)
 
 

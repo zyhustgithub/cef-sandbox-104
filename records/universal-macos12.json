@@ -1,0 +1,22 @@
+{
+  "target_host": "/Users/zengyong/work/muses_flutter",
+  "deployment_target": {
+    "arm64": "12.0",
+    "x86_64": "12.0"
+  },
+  "scope": "Universal CEF 104; preserve Flutter and host deployment requirements. Previous 11.0/10.13 experiments are superseded.",
+  "outputs": {
+    "arm64": "chromium/src/out/Release_GN_arm64",
+    "x86_64": "chromium/src/out/Release_GN_x64_macos12"
+  },
+  "source_commits": {
+    "chromium": "657e2a6a6be802e2e6d71090f141afccfadd2a00",
+    "cef": "ee9413170c23a4e0b363ccaa4379b8dfe2f2ca8b",
+    "v8": "74d856b8309dbd279a1a8f936733d14486924ca9"
+  },
+  "validation": {
+    "arm64": "Incremental cef_framework build passed with architecture-specific snapshots.",
+    "x86_64": "Build in progress; SDK math.h overlay passed initial compilation.",
+    "universal": "Not merged or installed yet; runtime validation pending."
+  }
+}

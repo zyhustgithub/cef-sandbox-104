@@ -1,0 +1,35 @@
+From 657e2a6a6be802e2e6d71090f141afccfadd2a00 Mon Sep 17 00:00:00 2001
+From: zengyong <zengyong@niimbot.com>
+Date: Tue, 13 Oct 2026 09:38:38 +0800
+Subject: [PATCH] Allow a private SDK header overlay for legacy Chromium clang
+
+---
+ build/config/mac/BUILD.gn | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/build/config/mac/BUILD.gn b/build/config/mac/BUILD.gn
+index c6ea0e7995..248517cd9d 100644
+--- a/build/config/mac/BUILD.gn
++++ b/build/config/mac/BUILD.gn
+@@ -64,6 +64,8 @@ config("compiler") {
+ declare_args() {
+   # Opt-in for native desktop builds of Chromium 104 with a newer installed SDK.
+   cef_legacy_clang_modern_sdk = false
++  # Optional private SDK header overlay for pinned Chromium compilers.
++  cef_legacy_sdk_overlay = ""
+ }
+ 
+ config("runtime_library") {
+@@ -91,6 +93,9 @@ config("runtime_library") {
+     # Preserve the actual -mmacosx-version-min value supplied to this build.
+     defines += [ "__ENVIRONMENT_OS_VERSION_MIN_REQUIRED__=__ENVIRONMENT_MAC_OS_X_VERSION_MIN_REQUIRED__" ]
+     cflags += [ "-Wno-builtin-macro-redefined" ]
++    if (cef_legacy_sdk_overlay != "") {
++      cflags += [ "-ivfsoverlay", cef_legacy_sdk_overlay ]
++    }
+     # LLD 15 warns about absent host /usr/local/lib even with an SDK sysroot.
+     # Keep system library/framework lookup inside the selected SDK explicitly.
+     ldflags += [
+-- 
+2.54.0 (Apple Git-157)
+
