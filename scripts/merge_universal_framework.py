@@ -71,9 +71,10 @@ def main():
         dest = args.output / name
         dest.parent.mkdir(parents=True, exist_ok=True)
         for arch in roots:
-            subprocess.run(['lipo', '-verify_arch', arch, str(items[arch][name])], check=True)
+            subprocess.run(['lipo', str(items[arch][name]), '-verify_arch', arch], check=True)
         subprocess.run(['lipo', '-create', *(str(items[a][name]) for a in roots), '-output', str(dest)], check=True)
-        subprocess.run(['lipo', '-verify_arch', 'arm64', 'x86_64', str(dest)], check=True)
+        for arch in roots:
+            subprocess.run(['lipo', str(dest), '-verify_arch', arch], check=True)
     record = {'sources': {a: str(p) for a, p in roots.items()}, 'output': str(args.output),
               'files': {n: sha(p) for n, p in sorted(inventory(args.output).items())}}
     (args.output.parent / 'merge-manifest.json').write_text(json.dumps(record, indent=2) + '\n')
