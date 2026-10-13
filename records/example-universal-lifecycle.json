@@ -1,0 +1,22 @@
+[
+  {
+    "action": "_closeNativePopup@21186633",
+    "popupCount": 0,
+    "resultType": "@Instance"
+  },
+  {
+    "action": "_openNativePopup@21186633",
+    "popupCount": 1,
+    "resultType": "@Instance"
+  },
+  {
+    "action": "_closeNativePopup@21186633",
+    "popupCount": 0,
+    "resultType": "@Instance"
+  },
+  {
+    "action": "_openNativePopup@21186633",
+    "popupCount": 1,
+    "resultType": "@Instance"
+  }
+]

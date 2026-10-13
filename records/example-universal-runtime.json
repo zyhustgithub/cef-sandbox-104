@@ -1,0 +1,26 @@
+[
+  {
+    "url": "file:///Users/zengyong/work/niimbot_cef_bridge/example/build/macos/Build/Products/Debug/example.app/Contents/Frameworks/App.framework/Resources/flutter_assets/assets/popup.html",
+    "response": {
+      "id": 1,
+      "result": {
+        "result": {
+          "type": "string",
+          "value": "{\"title\":\"Niimbot Web Window\",\"ready\":\"complete\",\"arithmetic\":42,\"framework\":\"object\",\"bridge\":\"object\",\"body\":\" Ping\\nevaluateJavaScript\\nexecuteJavaScript\\nCookie\\nDevTools\\n取消挂起调用\\nPrintSdk 回包\\n{\\\"ok\\\":true,\\\"data\\\":{\\\"printers\\\":[{\\\"name\\\":\\\"Mock Printer\\\"}]}}\\n不存在 JSAPI\\n等待调用…\\nNative → Web\\n等待 Flutter 点击“Native 调用 Web 页面”…\\n已挂载模块\\nNativeWindow: 已挂载\\nPrintSdk: 已挂载\\nMissingSdk: 未挂载\\nController 回包\\n等待调用…\\nFrame / iframe JSAPI 测试\\n\\n本地 iframe 会直接检测 JSAPI；跨域页面只能验证 Frame 的加载和销毁。\\n\\n打开本地 iframe\\n打开指定网址\\n关闭 iframe 并复测主页面\\n通信日志\\n[12:50:43 PM] JS 已注册 native.message handler\\n[12:50:43 PM] JS → Native PrintSdk.GetPrintersInfo {}\\n[12:50:43 PM] Native → JS callback PrintSdk.GetPrintersInfo {\\\"ok\\\":true,\\\"data\\\":{\\\"printers\\\":[{\\\"name\\\":\\\"Mock Printer\\\"}]}}\\n\"}"
+        }
+      }
+    }
+  },
+  {
+    "url": "file:///Users/zengyong/work/niimbot_cef_bridge/example/build/macos/Build/Products/Debug/example.app/Contents/Frameworks/App.framework/Resources/flutter_assets/assets/inline-jsapi.html",
+    "response": {
+      "id": 1,
+      "result": {
+        "result": {
+          "type": "string",
+          "value": "{\"title\":\"Inline CEF JSAPI Test\",\"ready\":\"complete\",\"arithmetic\":42,\"framework\":\"object\",\"bridge\":\"object\",\"body\":\"eforeinput / input 事件…\\n展开下拉框测试 popup surface\\n第二项\\n第三项\\nTooltip\\n\\n将鼠标停留在下方元素上，软件离屏入口应显示 Flutter Overlay 提示；移开后提示消失。\\n\\n悬停显示 Tooltip 长 Tooltip\\nTab / Shift+Tab 焦点遍历\\n\\n点击“定位网页首项”后按 Shift+Tab，或聚焦最后一个按钮后按 Tab；焦点应交回 Flutter。\\n\\n定位网页首项\\n网页最后焦点\\n等待 focusin / focusout…\\n拖放生命周期\\n\\n把左侧块拖到右侧目标，检查 dragenter、dragover、drop、dragleave、dragend；拖出网页或按 Esc 应取消。\\n\\n拖动我\\ntext/plain + application/json\\n拖放到这里\\n等待拖放事件…\\n选择文本与 IME 重转换\\n\\n请选中这段中文文本，然后使用当前输入法的“重转换”快捷键或菜单，测试 Windows IMR_RECONVERTSTRING。\\n\\n等待 selectionchange…\\nNative → Web handler\\n\\n已准备注册 framework.invokeMessage('native.message')。\\n\\n通信日志\\n[12:50:30 PM] JS native.message handler 已注册\\n\"}"
+        }
+      }
+    }
+  }
+]

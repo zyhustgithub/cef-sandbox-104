@@ -1,0 +1,30 @@
+{
+  "cefVersion": [
+    104,
+    0,
+    0,
+    3,
+    104,
+    0,
+    5112,
+    102
+  ],
+  "cefApiHashes": [
+    "316e120c0bf151de8145ee3b45ef3451e1ff60dc",
+    "1f35577ebd00c5e6cc03a172bb41e3c0d820f3d1",
+    "ee9413170c23a4e0b363ccaa4379b8dfe2f2ca8b"
+  ],
+  "app": "/Users/zengyong/work/niimbot_cef_bridge/example/build/macos/Build/Products/Debug/example.app",
+  "sourceCommits": {
+    "chromium": "43b916f46cc7ecdac1ab952f7dcc27d4c158b36e",
+    "cef": "ee9413170c23a4e0b363ccaa4379b8dfe2f2ca8b"
+  },
+  "limitations": [
+    "Intel runtime not executed: Rosetta unavailable",
+    "macOS 12 compatibility checked via deployment targets; host runs macOS 26",
+    "Startup logs contain duplicate AXPlatformNodeCocoa class warning from Flutter and CEF"
+  ],
+  "codesignDeepStrict": "passed",
+  "signature": "Executable=/Users/zengyong/work/niimbot_cef_bridge/example/build/macos/Build/Products/Debug/example.app/Contents/MacOS/example\nIdentifier=com.niimbot.cefbridge.example\nFormat=app bundle with Mach-O universal (x86_64 arm64)\nCodeDirectory v=20500 size=457 flags=0x10000(runtime) hashes=3+7 location=embedded\nSignature size=4827\nSigned Time=Oct 13, 2026 at 12:48:37\nInfo.plist entries=25\nTeamIdentifier=YSP53GL6F6\nRuntime Version=27.0.0\nSealed Resources version=2 rules=13 files=17\nInternal requirements count=1 size=192\n",
+  "machOBinariesVerified": 18
+}
