@@ -1,0 +1,59 @@
+{
+  "backup_branch": "backup/before-official-first-20261013-140941",
+  "branch": "refs/heads/codex/cef104-app-sandbox",
+  "old_head": "43b916f46cc7ecdac1ab952f7dcc27d4c158b36e",
+  "new_head": "8fbe6ed2edae1793e8e8bae834e21922b65cc434",
+  "final_tree_unchanged": true,
+  "commits": [
+    {
+      "old": "749e171f1d9a838c4f71cbb071b2f64e99974fe4",
+      "new": "6a4959455b4569b2822f8e8abce65d4bbd3d2b4e",
+      "subject": "Restore macOS Google Toolbox dependency at Chromium DEPS revision"
+    },
+    {
+      "old": "357784a5cac5276231ebccb5a4b51b1a627debd1",
+      "new": "c2005fca1e7d202416f81f1ef6f8aa87e73bf17c",
+      "subject": "Install official DEPS-pinned esbuild for macOS arm64"
+    },
+    {
+      "old": "95468c7567c0cb3528a5fada100008427d184038",
+      "new": "5c3ede40c40494c70a825e8e05b89e91ee0b489f",
+      "subject": "Use CEF with the local application-group IPC patch"
+    },
+    {
+      "old": "c3b2095b6ccb84c537fc108d4e7728ab9035bf67",
+      "new": "6ed1e0cfed6f826cd6ffccf3edc70433dd256143",
+      "subject": "Add opt-in Clang 15 compatibility for native macOS builds with newer SDKs"
+    },
+    {
+      "old": "f26066bfcd2ab8a5ecbe7826a6d6ffa36ed38753",
+      "new": "7b6dc45799faad491efddfd04588e8bf7fc373c0",
+      "subject": "Supply modern SDK deployment macro from Clang 15 macOS target version"
+    },
+    {
+      "old": "673aa3325273cb4561feb44cde73e456d3d5f0da",
+      "new": "60056c2cd662aa69bdb4275002d0f549a4cddddc",
+      "subject": "Use explicit SDK system search paths with legacy macOS LLD"
+    },
+    {
+      "old": "65bee5592dd6650ae52487ff95bc62fb8a346f84",
+      "new": "cf1271eb47d0159de7a37eba13a41fb3cc7299ba",
+      "subject": "Identify macOS browser role explicitly for pseudonymization salt initialization"
+    },
+    {
+      "old": "26c715bf2b656d0e7f57eb8c397a464cb4afae83",
+      "new": "5efbe1e9ba86a53205f5a325fe6636c52a17d69f",
+      "subject": "Select architecture-specific V8 startup snapshots on macOS"
+    },
+    {
+      "old": "657e2a6a6be802e2e6d71090f141afccfadd2a00",
+      "new": "8a50883629bdc43c8ff3487037697754dc4bc3d8",
+      "subject": "Allow a private SDK header overlay for legacy Chromium clang"
+    },
+    {
+      "old": "43b916f46cc7ecdac1ab952f7dcc27d4c158b36e",
+      "new": "8fbe6ed2edae1793e8e8bae834e21922b65cc434",
+      "subject": "Check macOS page size at runtime for Intel deployment targets 11 and newer"
+    }
+  ]
+}
