@@ -52,6 +52,8 @@ def main():
             tmp.write_text(json.dumps(status, indent=2) + '\n')
             tmp.replace(status_path)
 
+        # A previous successful build is not evidence for this resumed attempt.
+        (state / ('07-framework-build' + suffix + '.done')).unlink(missing_ok=True)
         save()
         print('Resuming framework build; log: ' + str(log_path), flush=True)
         try:
