@@ -73,3 +73,10 @@ retains its historical log/state filenames. The merge script rejects conflicting
 shared resources and keeps both architecture-specific snapshot sets. Merging is
 staging only: bridge SDK replacement and host build/runtime verification follow
 separately. CEF runtime replacements in the bridge remain for the user to commit.
+
+After changing CEF source commits, regenerate its ignored version header before
+building (`cd chromium/src/cef && python3 tools/make_version_header.py include/cef_version.h`).
+`cef_api_hash(2)` must match the CEF source commit; it is separate from the two
+public API compatibility hashes. `records/arm64-macos12-verification.json` records
+the completed arm64 build and API checks; full universal app validation remains a
+separate step after the Intel build and runtime replacement.

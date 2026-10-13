@@ -1,0 +1,24 @@
+{
+  "version_info": [
+    104,
+    0,
+    0,
+    3,
+    104,
+    0,
+    5112,
+    102
+  ],
+  "api_hashes": [
+    "316e120c0bf151de8145ee3b45ef3451e1ff60dc",
+    "1f35577ebd00c5e6cc03a172bb41e3c0d820f3d1",
+    "ee9413170c23a4e0b363ccaa4379b8dfe2f2ca8b"
+  ],
+  "main_sha256": "94aa5a77774c5a9297e15c68b02364f879de2f3439123f9829fa22eeda02b8c9",
+  "binaries": {
+    "Chromium Embedded Framework": "/Users/zengyong/work/cef-sandbox-104/chromium/src/out/Release_GN_arm64/Chromium Embedded Framework.framework/Versions/A/Chromium Embedded Framework:\nLoad command 9\n      cmd LC_BUILD_VERSION\n  cmdsize 32\n platform MACOS\n    minos 12.0\n      sdk 12.3\n   ntools 1\n     tool LD\n  version 15.0\n",
+    "Libraries/libEGL.dylib": "/Users/zengyong/work/cef-sandbox-104/chromium/src/out/Release_GN_arm64/Chromium Embedded Framework.framework/Versions/A/Libraries/libEGL.dylib:\nLoad command 11\n      cmd LC_BUILD_VERSION\n  cmdsize 32\n platform MACOS\n    minos 12.0\n      sdk 12.3\n   ntools 1\n     tool LD\n  version 15.0\n",
+    "Libraries/libGLESv2.dylib": "/Users/zengyong/work/cef-sandbox-104/chromium/src/out/Release_GN_arm64/Chromium Embedded Framework.framework/Versions/A/Libraries/libGLESv2.dylib:\nLoad command 11\n      cmd LC_BUILD_VERSION\n  cmdsize 32\n platform MACOS\n    minos 12.0\n      sdk 12.3\n   ntools 1\n     tool LD\n  version 15.0\n",
+    "Libraries/libvk_swiftshader.dylib": "/Users/zengyong/work/cef-sandbox-104/chromium/src/out/Release_GN_arm64/Chromium Embedded Framework.framework/Versions/A/Libraries/libvk_swiftshader.dylib:\nLoad command 9\n      cmd LC_BUILD_VERSION\n  cmdsize 32\n platform MACOS\n    minos 12.0\n      sdk 12.3\n   ntools 1\n     tool LD\n  version 15.0\n"
+  }
+}
