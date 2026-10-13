@@ -1,0 +1,6 @@
+{
+  "url": "https://github.com/joseluisq/macosx-sdks/releases/download/12.3/MacOSX12.3.sdk.tar.xz",
+  "sha256": "3abd261ceb483c44295a6623fdffe5d44fc4ac2c872526576ec5ab5ad0f6e26c",
+  "source": "Third-party archive of Apple SDK, published checksum verified",
+  "reason": "Pinned Chromium clang predates SDK15 Intel Float16 support; both architectures use SDK12.3 without a header overlay."
+}

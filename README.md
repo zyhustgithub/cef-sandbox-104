@@ -51,12 +51,14 @@ The dependency audit is diagnostic only and does not change the host's requireme
   `records/universal-macos12.json`.
 - Default V8 snapshots now have architecture-specific bundle names; unbundled
   snapshot generators retain V8's original filename.
-- `scripts/prepare_sdk_overlay.py` creates a private SDK header mapping for old
-  Clang's lack of Intel `_Float16`; it does not edit the installed SDK.
+- Both architectures now use the pinned SDK12.3 archive in `records/sdk12.3.json`.
+  `scripts/prepare_sdk12.sh` supports resume and verifies its published SHA256.
+  The previous SDK15 overlay experiment is retained as history only: SIMD
+  headers also require newer compiler features, so it is no longer enabled.
 
 ```bash
 source build-env.sh
-python3 scripts/prepare_sdk_overlay.py
+bash scripts/prepare_sdk12.sh
 # args.gn copies are recorded in records/; gn gen must precede each build.
 python3 scripts/build_cef104_framework.py --out Release_GN_arm64 --jobs 8
 python3 scripts/build_cef104_framework.py --out Release_GN_x64_macos12 --jobs 8

@@ -15,8 +15,9 @@
     "v8": "74d856b8309dbd279a1a8f936733d14486924ca9"
   },
   "validation": {
-    "arm64": "Incremental cef_framework build passed with architecture-specific snapshots.",
-    "x86_64": "Build in progress; SDK math.h overlay passed initial compilation.",
+    "arm64": "Rebuilding with SDK12.3; prior SDK15.4 build passed.",
+    "x86_64": "SDK15.4 compilation stopped on unsupported Float16 in SIMD headers; rebuilding with SDK12.3.",
     "universal": "Not merged or installed yet; runtime validation pending."
-  }
+  },
+  "sdk": "sdks/MacOSX12.3.sdk"
 }
