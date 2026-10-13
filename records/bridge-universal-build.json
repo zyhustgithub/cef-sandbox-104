@@ -1,0 +1,45 @@
+{
+  "scope": "Bridge libraries and helpers only; libcef and final host runtime verification are pending.",
+  "files": [
+    {
+      "path": "/Users/zengyong/work/niimbot_cef_bridge/niimbot_cef/Output/lib/libniimbot_cef_jsapi.dylib",
+      "architectures": "x86_64 arm64",
+      "build_versions": "/Users/zengyong/work/niimbot_cef_bridge/niimbot_cef/Output/lib/libniimbot_cef_jsapi.dylib (architecture x86_64):\nLoad command 10\n      cmd LC_BUILD_VERSION\n  cmdsize 32\n platform MACOS\n    minos 12.0\n      sdk 27.0\n   ntools 1\n     tool LD\n  version 27037.1\n/Users/zengyong/work/niimbot_cef_bridge/niimbot_cef/Output/lib/libniimbot_cef_jsapi.dylib (architecture arm64):\nLoad command 10\n      cmd LC_BUILD_VERSION\n  cmdsize 32\n platform MACOS\n    minos 12.0\n      sdk 27.0\n   ntools 1\n     tool LD\n  version 27037.1\n"
+    },
+    {
+      "path": "/Users/zengyong/work/niimbot_cef_bridge/niimbot_cef/Output/lib/libcef_dll_wrapper.dylib",
+      "architectures": "x86_64 arm64",
+      "build_versions": "/Users/zengyong/work/niimbot_cef_bridge/niimbot_cef/Output/lib/libcef_dll_wrapper.dylib (architecture x86_64):\nLoad command 10\n      cmd LC_BUILD_VERSION\n  cmdsize 32\n platform MACOS\n    minos 12.0\n      sdk 27.0\n   ntools 1\n     tool LD\n  version 27037.1\n/Users/zengyong/work/niimbot_cef_bridge/niimbot_cef/Output/lib/libcef_dll_wrapper.dylib (architecture arm64):\nLoad command 10\n      cmd LC_BUILD_VERSION\n  cmdsize 32\n platform MACOS\n    minos 12.0\n      sdk 27.0\n   ntools 1\n     tool LD\n  version 27037.1\n"
+    },
+    {
+      "path": "/Users/zengyong/work/niimbot_cef_bridge/niimbot_cef/Output/lib/libniimbot_printsdk_jsapi.dylib",
+      "architectures": "x86_64 arm64",
+      "build_versions": "/Users/zengyong/work/niimbot_cef_bridge/niimbot_cef/Output/lib/libniimbot_printsdk_jsapi.dylib (architecture x86_64):\nLoad command 10\n      cmd LC_BUILD_VERSION\n  cmdsize 32\n platform MACOS\n    minos 12.0\n      sdk 27.0\n   ntools 1\n     tool LD\n  version 27037.1\n/Users/zengyong/work/niimbot_cef_bridge/niimbot_cef/Output/lib/libniimbot_printsdk_jsapi.dylib (architecture arm64):\nLoad command 10\n      cmd LC_BUILD_VERSION\n  cmdsize 32\n platform MACOS\n    minos 12.0\n      sdk 27.0\n   ntools 1\n     tool LD\n  version 27037.1\n"
+    },
+    {
+      "path": "/Users/zengyong/work/niimbot_cef_bridge/niimbot_cef/Output/lib/libniimbot_cef.dylib",
+      "architectures": "x86_64 arm64",
+      "build_versions": "/Users/zengyong/work/niimbot_cef_bridge/niimbot_cef/Output/lib/libniimbot_cef.dylib (architecture x86_64):\nLoad command 10\n      cmd LC_BUILD_VERSION\n  cmdsize 32\n platform MACOS\n    minos 12.0\n      sdk 27.0\n   ntools 1\n     tool LD\n  version 27037.1\n/Users/zengyong/work/niimbot_cef_bridge/niimbot_cef/Output/lib/libniimbot_cef.dylib (architecture arm64):\nLoad command 10\n      cmd LC_BUILD_VERSION\n  cmdsize 32\n platform MACOS\n    minos 12.0\n      sdk 27.0\n   ntools 1\n     tool LD\n  version 27037.1\n"
+    },
+    {
+      "path": "/Users/zengyong/work/niimbot_cef_bridge/niimbot_cef/Output/bin/niimbot_cef_host (GPU).app/Contents/MacOS/niimbot_cef_host (GPU)",
+      "architectures": "x86_64 arm64",
+      "build_versions": "/Users/zengyong/work/niimbot_cef_bridge/niimbot_cef/Output/bin/niimbot_cef_host (GPU).app/Contents/MacOS/niimbot_cef_host (GPU) (architecture x86_64):\nLoad command 10\n      cmd LC_BUILD_VERSION\n  cmdsize 32\n platform MACOS\n    minos 12.0\n      sdk 27.0\n   ntools 1\n     tool LD\n  version 27037.1\n/Users/zengyong/work/niimbot_cef_bridge/niimbot_cef/Output/bin/niimbot_cef_host (GPU).app/Contents/MacOS/niimbot_cef_host (GPU) (architecture arm64):\nLoad command 10\n      cmd LC_BUILD_VERSION\n  cmdsize 32\n platform MACOS\n    minos 12.0\n      sdk 27.0\n   ntools 1\n     tool LD\n  version 27037.1\n"
+    },
+    {
+      "path": "/Users/zengyong/work/niimbot_cef_bridge/niimbot_cef/Output/bin/niimbot_cef_host.app/Contents/MacOS/niimbot_cef_host",
+      "architectures": "x86_64 arm64",
+      "build_versions": "/Users/zengyong/work/niimbot_cef_bridge/niimbot_cef/Output/bin/niimbot_cef_host.app/Contents/MacOS/niimbot_cef_host (architecture x86_64):\nLoad command 10\n      cmd LC_BUILD_VERSION\n  cmdsize 32\n platform MACOS\n    minos 12.0\n      sdk 27.0\n   ntools 1\n     tool LD\n  version 27037.1\n/Users/zengyong/work/niimbot_cef_bridge/niimbot_cef/Output/bin/niimbot_cef_host.app/Contents/MacOS/niimbot_cef_host (architecture arm64):\nLoad command 10\n      cmd LC_BUILD_VERSION\n  cmdsize 32\n platform MACOS\n    minos 12.0\n      sdk 27.0\n   ntools 1\n     tool LD\n  version 27037.1\n"
+    },
+    {
+      "path": "/Users/zengyong/work/niimbot_cef_bridge/niimbot_cef/Output/bin/niimbot_cef_host (Renderer).app/Contents/MacOS/niimbot_cef_host (Renderer)",
+      "architectures": "x86_64 arm64",
+      "build_versions": "/Users/zengyong/work/niimbot_cef_bridge/niimbot_cef/Output/bin/niimbot_cef_host (Renderer).app/Contents/MacOS/niimbot_cef_host (Renderer) (architecture x86_64):\nLoad command 10\n      cmd LC_BUILD_VERSION\n  cmdsize 32\n platform MACOS\n    minos 12.0\n      sdk 27.0\n   ntools 1\n     tool LD\n  version 27037.1\n/Users/zengyong/work/niimbot_cef_bridge/niimbot_cef/Output/bin/niimbot_cef_host (Renderer).app/Contents/MacOS/niimbot_cef_host (Renderer) (architecture arm64):\nLoad command 10\n      cmd LC_BUILD_VERSION\n  cmdsize 32\n platform MACOS\n    minos 12.0\n      sdk 27.0\n   ntools 1\n     tool LD\n  version 27037.1\n"
+    },
+    {
+      "path": "/Users/zengyong/work/niimbot_cef_bridge/niimbot_cef/Output/bin/niimbot_cef_host (Plugin).app/Contents/MacOS/niimbot_cef_host (Plugin)",
+      "architectures": "x86_64 arm64",
+      "build_versions": "/Users/zengyong/work/niimbot_cef_bridge/niimbot_cef/Output/bin/niimbot_cef_host (Plugin).app/Contents/MacOS/niimbot_cef_host (Plugin) (architecture x86_64):\nLoad command 10\n      cmd LC_BUILD_VERSION\n  cmdsize 32\n platform MACOS\n    minos 12.0\n      sdk 27.0\n   ntools 1\n     tool LD\n  version 27037.1\n/Users/zengyong/work/niimbot_cef_bridge/niimbot_cef/Output/bin/niimbot_cef_host (Plugin).app/Contents/MacOS/niimbot_cef_host (Plugin) (architecture arm64):\nLoad command 10\n      cmd LC_BUILD_VERSION\n  cmdsize 32\n platform MACOS\n    minos 12.0\n      sdk 27.0\n   ntools 1\n     tool LD\n  version 27037.1\n"
+    }
+  ]
+}

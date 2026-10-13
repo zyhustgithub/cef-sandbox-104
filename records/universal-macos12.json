@@ -1,10 +1,10 @@
 {
-  "target_host": "/Users/zengyong/work/muses_flutter",
+  "target_host": "niimbot_cef_bridge/example",
   "deployment_target": {
     "arm64": "12.0",
     "x86_64": "12.0"
   },
-  "scope": "Universal CEF 104; preserve Flutter and host deployment requirements. Previous 11.0/10.13 experiments are superseded.",
+  "scope": "Build universal CEF 104 at macOS12.0, replace niimbot_cef runtime in niimbot_cef_bridge and validate this project. muses_flutter is only the compatibility reference; no integration changes there.",
   "outputs": {
     "arm64": "chromium/src/out/Release_GN_arm64",
     "x86_64": "chromium/src/out/Release_GN_x64_macos12"

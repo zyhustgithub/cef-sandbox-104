@@ -38,10 +38,11 @@ Only the app bundle is normalized into the macOS `Versions/A` structure.
 The two pseudolocales `ar_XB` and `en_XA` are omitted from the distribution;
 real locales, ICU, V8 snapshots, resource packs and GPU libraries are retained.
 
-## Universal CEF for muses_flutter (2026-10-13)
+## Universal CEF for niimbot_cef_bridge (2026-10-13)
 
-The final scope preserves muses_flutter's current macOS 12.0 deployment target
-and existing Flutter/business dependency versions. Earlier arm64 11.0 / Intel
+The final scope uses muses_flutter's macOS 12.0 deployment target as a
+compatibility reference only. Replace the runtime in niimbot_cef_bridge/niimbot_cef
+and validate this project's example; do not integrate or modify muses_flutter. Earlier arm64 11.0 / Intel
 10.13 configuration records are superseded; those experimental builds stopped.
 The dependency audit is diagnostic only and does not change the host's requirements.
 
