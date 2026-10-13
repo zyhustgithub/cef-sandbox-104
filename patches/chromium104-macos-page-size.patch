@@ -1,0 +1,32 @@
+From 43b916f46cc7ecdac1ab952f7dcc27d4c158b36e Mon Sep 17 00:00:00 2001
+From: zengyong <zengyong@niimbot.com>
+Date: Tue, 13 Oct 2026 10:22:54 +0800
+Subject: [PATCH] Check macOS page size at runtime for Intel deployment targets
+ 11 and newer
+
+---
+ base/process/process_metrics_mac.cc | 7 ++-----
+ 1 file changed, 2 insertions(+), 5 deletions(-)
+
+diff --git a/base/process/process_metrics_mac.cc b/base/process/process_metrics_mac.cc
+index 5ed61ed8ed..f60c9c627d 100644
+--- a/base/process/process_metrics_mac.cc
++++ b/base/process/process_metrics_mac.cc
+@@ -296,12 +296,9 @@ bool GetSystemMemoryInfo(SystemMemoryInfoKB* meminfo) {
+   }
+   DCHECK_EQ(HOST_VM_INFO64_COUNT, count);
+ 
+-#if defined(ARCH_CPU_ARM64)
+-  // PAGE_SIZE is vm_page_size on arm, which isn't constexpr.
++  // SDKs targeting macOS 11+ use vm_page_size on Intel as well as ARM.
++  // The page size is therefore a runtime value on both supported architectures.
+   DCHECK_EQ(PAGE_SIZE % 1024, 0u) << "Invalid page size";
+-#else
+-  static_assert(PAGE_SIZE % 1024 == 0, "Invalid page size");
+-#endif
+   meminfo->free = saturated_cast<int>(
+       PAGE_SIZE / 1024 * (vm_info.free_count - vm_info.speculative_count));
+   meminfo->speculative =
+-- 
+2.54.0 (Apple Git-157)
+

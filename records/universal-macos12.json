@@ -10,13 +10,13 @@
     "x86_64": "chromium/src/out/Release_GN_x64_macos12"
   },
   "source_commits": {
-    "chromium": "657e2a6a6be802e2e6d71090f141afccfadd2a00",
+    "chromium": "43b916f46cc7ecdac1ab952f7dcc27d4c158b36e",
     "cef": "ee9413170c23a4e0b363ccaa4379b8dfe2f2ca8b",
     "v8": "74d856b8309dbd279a1a8f936733d14486924ca9"
   },
   "validation": {
     "arm64": "Rebuilding with SDK12.3; prior SDK15.4 build passed.",
-    "x86_64": "SDK15.4 compilation stopped on unsupported Float16 in SIMD headers; rebuilding with SDK12.3.",
+    "x86_64": "SDK12.3 build resumed after macOS12 PAGE_SIZE runtime check fix; awaiting completion.",
     "universal": "Not merged or installed yet; runtime validation pending."
   },
   "sdk": "sdks/MacOSX12.3.sdk"
