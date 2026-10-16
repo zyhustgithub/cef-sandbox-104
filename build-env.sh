@@ -1,6 +1,17 @@
 #!/bin/bash
 # Source this file for the isolated Chromium 104 toolchain. No global Git changes.
-export PATH="/Users/zengyong/work/cef-sandbox-104/depot_tools:$PATH"
+# Resolve relative to this file, so sourcing it does not depend on the current directory.
+if [ -n "${BASH_VERSION:-}" ]; then
+  _cef_build_env_path="${BASH_SOURCE[0]}"
+elif [ -n "${ZSH_VERSION:-}" ]; then
+  _cef_build_env_path="${(%):-%x}"
+else
+  echo "Source build-env.sh from Bash or Zsh." >&2
+  return 1
+fi
+_cef_workspace_dir="$(cd -- "$(dirname -- "$_cef_build_env_path")" && pwd)" || return 1
+export PATH="$_cef_workspace_dir/depot_tools:$PATH"
+unset _cef_build_env_path _cef_workspace_dir
 export DEPOT_TOOLS_UPDATE=0
 export GCLIENT_PY3=1
 export http_proxy=http://127.0.0.1:7897
