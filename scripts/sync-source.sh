@@ -16,6 +16,8 @@ git submodule sync --recursive
 git submodule update --init --recursive
 git -C chromium/src lfs install --local
 git -C chromium/src lfs pull
+git -C cef_build_tools lfs install --local
+git -C cef_build_tools lfs pull
 
 # These settings are local to this checkout; each new clone must run this script.
 git config --local submodule.recurse true
@@ -31,4 +33,5 @@ fi
 echo "Source dependencies are synchronized to the recorded commits."
 echo "Future git pull operations in this checkout will update submodules recursively."
 echo "depot_tools source is included; use DEPOT_TOOLS_UPDATE=0 when running it to retain the pinned revision."
-echo "macOS SDK, Clang/GN, CIPD/Python caches and build outputs require separate setup."
+echo "Pinned macOS ARM64 SDK/tool archives are in cef_build_tools; run its restore.py explicitly when needed."
+echo "Xcode/CLT, some vpython packages, build configuration and build outputs remain separate setup."

@@ -5,3 +5,7 @@
 [submodule "depot_tools"]
 	path = depot_tools
 	url = https://github.com/zyhustgithub/depot_tools.git
+
+[submodule "cef_build_tools"]
+	path = cef_build_tools
+	url = https://github.com/zyhustgithub/cef_build_tools.git

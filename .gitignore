@@ -17,3 +17,6 @@ __pycache__/
 
 # Pinned depot_tools source; runtime caches remain untracked inside it.
 !/depot_tools/
+
+# Private, LFS-backed archive of the pinned build tools and SDK.
+!/cef_build_tools/
