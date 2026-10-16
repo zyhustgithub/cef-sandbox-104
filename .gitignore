@@ -14,3 +14,6 @@ __pycache__/
 !/chromium/
 /chromium/*
 !/chromium/src/
+
+# Pinned depot_tools source; runtime caches remain untracked inside it.
+!/depot_tools/

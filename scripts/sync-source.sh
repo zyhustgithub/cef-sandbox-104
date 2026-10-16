@@ -2,6 +2,7 @@
 # After cloning this workspace, run: bash scripts/sync-source.sh
 # For a new checkout: git clone --recurse-submodules <workspace-url>
 # Dependencies follow commits recorded by their parents, never remote branch tips.
+# depot_tools source is included; downloaded toolchain/runtime caches are not.
 set -euo pipefail
 
 workspace_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
@@ -29,4 +30,5 @@ fi
 
 echo "Source dependencies are synchronized to the recorded commits."
 echo "Future git pull operations in this checkout will update submodules recursively."
-echo "SDKs, build toolchains and build outputs require separate setup."
+echo "depot_tools source is included; use DEPOT_TOOLS_UPDATE=0 when running it to retain the pinned revision."
+echo "macOS SDK, Clang/GN, CIPD/Python caches and build outputs require separate setup."

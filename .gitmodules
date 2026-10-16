@@ -1,3 +1,7 @@
 [submodule "chromium/src"]
 	path = chromium/src
 	url = https://github.com/zyhustgithub/chromium_src_104.git
+
+[submodule "depot_tools"]
+	path = depot_tools
+	url = https://github.com/zyhustgithub/depot_tools.git
