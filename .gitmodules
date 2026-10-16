@@ -1,0 +1,3 @@
+[submodule "chromium/src"]
+	path = chromium/src
+	url = https://github.com/zyhustgithub/chromium_src_104.git

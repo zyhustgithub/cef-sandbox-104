@@ -8,3 +8,9 @@
 !/records/
 __pycache__/
 *.pyc
+
+# Track the Chromium source repository, not local build/download directories.
+!/.gitmodules
+!/chromium/
+/chromium/*
+!/chromium/src/
