@@ -114,6 +114,10 @@ def git_revision(path: Path) -> str:
     return command_text(["git", "rev-parse", "HEAD"], cwd=path)
 
 
+def git_dirty(path: Path) -> bool:
+    return bool(command_text(["git", "status", "--porcelain", "--untracked-files=no"], cwd=path))
+
+
 def workspace_env() -> dict:
     env = os.environ.copy()
     env["PATH"] = str(ROOT / "depot_tools") + os.pathsep + env.get("PATH", "")
@@ -172,7 +176,7 @@ def _check_revision(path: Path, expected: str) -> str:
     actual = git_revision(path)
     if actual != expected:
         raise BuildError(f"expected {expected[:12]}, got {actual[:12]}")
-    return actual[:12]
+    return actual[:12] + ("; local changes present" if git_dirty(path) else "")
 
 
 def _check_tool_arch(name: str, path: Path, expected: str) -> str:
@@ -479,6 +483,8 @@ def merge_and_verify(config: dict, profile: str) -> dict:
             "architectures": ["arm64", "x86_64"],
             "source_revisions": {name: git_revision(ROOT / name)
                                  for name in config["source_revisions"]},
+            "source_dirty": {name: git_dirty(ROOT / name)
+                             for name in config["source_revisions"]},
             "tools": tool_versions(),
             "gn_args": {arch: gn_args(config, profile, arch)
                         for arch in config["architectures"]},

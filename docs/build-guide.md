@@ -47,7 +47,7 @@ config/build-profiles.json
 3. 为 x64 执行同样步骤。目标架构与主机架构相互独立。
 4. 逐文件比较共享资源，保留两套 V8 架构快照，并用 `lipo` 合并四个核心 Mach-O。
 5. 检查四个文件均含 `arm64`、`x86_64`，最低系统版本匹配配置，SDK 均为 12.3。
-6. 生成包含全部文件 SHA256 的 `build-manifest.json`，再原子替换最终输出。
+6. 生成包含源码提交、源码工作树是否有本地改动及全部文件 SHA256 的 `build-manifest.json`，再原子替换最终输出。
 
 日志追加到 `.cef-build/<版本>/build.log`。失败时编译缓存保留，重试同一命令即可由 Ninja 续编。
 
