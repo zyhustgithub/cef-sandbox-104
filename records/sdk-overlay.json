@@ -1,6 +1,0 @@
-{
-  "sdk_header": "/Library/Developer/CommandLineTools/SDKs/MacOSX15.4.sdk/usr/include/math.h",
-  "sha256_original": "00606d7b27eb5db0a3b93c575a7084f432d1e783cfca2eedcdc234c01cb15134",
-  "sha256_overlay": "68f0b92fcb029f599b92f39a1bfb91c85d2344c3de2821eb094ecfe46c4b0798",
-  "change": "Guard 13 macOS 15 _Float16 declarations with __FLT16_MANT_DIG__."
-}

@@ -1,8 +1,0 @@
-{
-  "cef_commit": "4180781f5481a4f83a342dbf26e7dc6ce0a81ce3",
-  "chromium_version": "104.0.5112.102",
-  "chromium_commit": "3894ff7aacdd9406f4d19ef5b7e1b1d5bda1321a",
-  "depot_tools_commit": "350d21087100a8cd3941833f4c9ee962540cc582",
-  "architecture": "arm64",
-  "source_archive_md5": "37e0c3fecfcc0b92ffe1d617afea6b3d"
-}

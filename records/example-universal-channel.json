@@ -1,9 +1,0 @@
-{
-  "id": 2,
-  "result": {
-    "result": {
-      "type": "string",
-      "value": "N\nNiimbot 本地 Web 弹窗\n×\nJSAPI 双向通信测试\n\n验证 NativeWindow、PrintSdk、Native → Web 事件，以及不存在模块和方法的表现。\n\nWindow API 拖动区域已注册\nWeb → Native → Web callback\nPrintSdk.GetPrintersInfo\nPrintSdk.Print\n调用 MissingSdk.Ping\n调用 PrintSdk.NotExists\nWeb → Native Promise\nawait GetPrintersInfo\nawait Print\nPromise reject\nJavaScript Channel / WebView Controller\nChannel Ping\nevaluateJavaScript\nexecuteJavaScript\nCookie\nDevTools\n取消挂起调用\nPrintSdk 回包\n{\"ok\":true,\"data\":{\"printers\":[{\"name\":\"Mock Printer\"}]}}\n不存在 JSAPI\n等待调用…\nNative → Web\n等待 Flutter 点击“Native 调用 Web 页面”…\n已挂载模块\nNativeWindow: 已挂载\nPrintSdk: 已挂载\nMissingSdk: 未挂载\nController 回包\nping: popup bridgeTest channel 已连通\nFrame / iframe JSAPI 测试\n\n本地 iframe 会直接检测 JSAPI；跨域页面只能验证 Frame 的加载和销毁。\n\n打开本地 iframe\n打开指定网址\n关闭 iframe 并复测主页面\n通信日志\n[12:50:43 PM] JS 已注册 native.message handler\n[12:50:43 PM] JS → Native PrintSdk.GetPrintersInfo {}\n[12:50:43 PM] Native → JS callback PrintSdk.GetPrintersInfo {\"ok\":true,\"data\":{\"printers\":[{\"name\":\"Mock Printer\"}]}}\n[12:51:34 PM] Web → Flutter channel ping\n[12:51:34 PM] Flutter → Web ping: popup bridgeTest channel 已连通\n"
-    }
-  }
-}

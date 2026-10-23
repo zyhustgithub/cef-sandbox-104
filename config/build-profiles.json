@@ -1,0 +1,48 @@
+{
+  "format_version": 1,
+  "chromium_version": "104.0.5112.102",
+  "cef_version": "104.4.26+g4180781+chromium-104.0.5112.102",
+  "sdk_version": "12.3",
+  "default_profile": "macos12",
+  "architectures": [
+    "arm64",
+    "x64"
+  ],
+  "profiles": {
+    "macos11": {
+      "deployment_target": "11.0"
+    },
+    "macos12": {
+      "deployment_target": "12.0"
+    }
+  },
+  "common_gn_args": {
+    "cef_legacy_clang_modern_sdk": true,
+    "chrome_pgo_phase": 0,
+    "clang_use_chrome_plugins": false,
+    "enable_background_mode": false,
+    "enable_basic_printing": true,
+    "enable_nacl": false,
+    "enable_print_preview": true,
+    "enable_resource_allowlist_generation": false,
+    "enable_widevine": true,
+    "forbid_non_component_debug_builds": false,
+    "is_component_build": false,
+    "is_debug": false,
+    "is_official_build": false,
+    "optimize_webui": true,
+    "symbol_level": 0,
+    "treat_warnings_as_errors": false,
+    "use_allocator": "none",
+    "use_allocator_shim": false,
+    "use_thin_lto": false,
+    "v8_enable_sandbox": false
+  },
+  "source_revisions": {
+    "chromium/src": "a97d0d1fa5173c2140f4836f2db034fe5d785b8d",
+    "chromium/src/cef": "ee9413170c23a4e0b363ccaa4379b8dfe2f2ca8b",
+    "chromium/src/v8": "74d856b8309dbd279a1a8f936733d14486924ca9",
+    "chromium/src/third_party/google_toolbox_for_mac/src": "42b12f10cd8342f5cb41a1e3e3a2f13fd9943b0d",
+    "depot_tools": "350d21087100a8cd3941833f4c9ee962540cc582"
+  }
+}

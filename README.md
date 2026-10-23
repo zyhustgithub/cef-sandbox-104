@@ -1,82 +1,46 @@
-# CEF 104 macOS build workspace
+# CEF 104 macOS Universal 构建
 
-Owns CEF/Chromium download scripts, source baselines, official/local patch history,
-macOS toolchain configuration and build verification records. The bridge repository
-only consumes the built runtime and retains application integration code.
+本仓库用一个入口构建 CEF 104 Universal Framework，正式支持最低 macOS 11.0 和 12.0，默认构建 12.0。两套配置均固定使用 SDK 12.3，并合并 arm64 与 x86_64 产物。
 
-## Repositories
+![构建流程](docs/images/build-flow.svg)
 
-- This root repository tracks build tooling, patches and records only.
-- `chromium/src`: Chromium archive baseline and official/local patch commits.
-- `chromium/src/cef` (`cef` symlink): original CEF and local macOS IPC patch.
-- `chromium/src/v8`: original V8 and official CEF adaptation patch.
-- Source repositories remain independent; their histories were not rewritten.
+## 环境要求
 
-`records/previous-build-notes.md` preserves the original detailed build history.
-Paths mentioning the bridge repository's build scripts/patches in that historical
-record refer to their old locations. Current copies are `scripts/` and `patches/` here.
-`records/versions.json` pins the original inputs; `records/framework-verification.json`
-records the compiled source revisions. Downloads, outputs and mutable state stay
-local and ignored by Git. No remote has been configured for this root repository.
+- Apple Silicon 或 Intel Mac
+- 已安装并接受许可的 Xcode / Command Line Tools
+- Python 3.8+、Git 和 Git LFS
+- 可访问本项目及其私有子仓的 GitHub 账号
 
-## Continue this configured checkout
+Xcode/CLT 不在仓库内。固定的 SDK、Clang、GN 和 depot runtime 由 Git LFS 下载。
+
+## 首次初始化
 
 ```bash
-CEF_DOWNLOAD_PROXY=http://127.0.0.1:7897 scripts/prepare_chromium_104.sh
-source build-env.sh
-python3 scripts/build_cef104_framework.py --jobs 8
+git lfs install
+git clone --recurse-submodules https://github.com/zyhustgithub/cef-sandbox-104.git
+cd cef-sandbox-104
+./cef-build setup
+./cef-build doctor
 ```
 
-These are continuation tools for the existing staged checkout, not a complete
-one-command bootstrap for an empty machine. See the historical records for pinned
-platform dependencies and prerequisites. `configure-local.py` retains the local
-configuration helper; later source fixes are recorded as separate Git commits and
-patch files, not all replayed by that helper.
-
-The bridge SDK stores the runtime in its original flat distribution layout.
-Only the app bundle is normalized into the macOS `Versions/A` structure.
-The two pseudolocales `ar_XB` and `en_XA` are omitted from the distribution;
-real locales, ICU, V8 snapshots, resource packs and GPU libraries are retained.
-
-## Universal CEF for niimbot_cef_bridge (2026-10-13)
-
-The final scope uses muses_flutter's macOS 12.0 deployment target as a
-compatibility reference only. Replace the runtime in niimbot_cef_bridge/niimbot_cef
-and validate this project's example; do not integrate or modify muses_flutter. Earlier arm64 11.0 / Intel
-10.13 configuration records are superseded; those experimental builds stopped.
-The dependency audit is diagnostic only and does not change the host's requirements.
-
-- arm64 reuses `out/Release_GN_arm64` (12.0).
-- Intel uses `out/Release_GN_x64_macos12` (12.0).
-- Both use the same CEF/Chromium/V8 revisions recorded in
-  `records/universal-macos12.json`.
-- Default V8 snapshots now have architecture-specific bundle names; unbundled
-  snapshot generators retain V8's original filename.
-- Both architectures now use the pinned SDK12.3 archive in `records/sdk12.3.json`.
-  `scripts/prepare_sdk12.sh` supports resume and verifies its published SHA256.
-  The previous SDK15 overlay experiment is retained as history only: SIMD
-  headers also require newer compiler features, so it is no longer enabled.
+## 构建
 
 ```bash
-source build-env.sh
-bash scripts/prepare_sdk12.sh
-# args.gn copies are recorded in records/; gn gen must precede each build.
-python3 scripts/build_cef104_framework.py --out Release_GN_arm64 --jobs 8
-python3 scripts/build_cef104_framework.py --out Release_GN_x64_macos12 --jobs 8
-# After BOTH builds succeed:
-python3 scripts/merge_universal_framework.py
+# 默认：最低 macOS 12.0
+./cef-build build
+
+# 最低 macOS 11.0
+./cef-build build macos11
+
+# 显式选择 12.0 或并发数
+./cef-build build macos12 --jobs 8
 ```
 
-Each output has its own lock, append-only log and state file, and Ninja resumes
-completed objects without clearing the output directory. The default arm64 output
-retains its historical log/state filenames. The merge script rejects conflicting
-shared resources and keeps both architecture-specific snapshot sets. Merging is
-staging only: bridge SDK replacement and host build/runtime verification follow
-separately. CEF runtime replacements in the bridge remain for the user to commit.
+最终产物分别位于：
 
-After changing CEF source commits, regenerate its ignored version header before
-building (`cd chromium/src/cef && python3 tools/make_version_header.py include/cef_version.h`).
-`cef_api_hash(2)` must match the CEF source commit; it is separate from the two
-public API compatibility hashes. `records/arm64-macos12-verification.json` records
-the completed arm64 build and API checks; full universal app validation remains a
-separate step after the Intel build and runtime replacement.
+- `out/macos11/Chromium Embedded Framework.framework`
+- `out/macos12/Chromium Embedded Framework.framework`
+
+每个输出旁的 `build-manifest.json` 记录源码提交、工具版本、GN 参数、架构、最低系统版本和 SHA256。
+
+环境、LFS、工具架构或源码版本异常时先运行 `./cef-build doctor`。构建机制与清理命令见 [构建说明](docs/build-guide.md)，已验证范围见 [验证矩阵](docs/verification-matrix.md)。

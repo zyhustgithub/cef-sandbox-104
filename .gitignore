@@ -1,22 +1,20 @@
 /*
 !/.gitignore
-!/README.md
-!/build-env.sh
-!/configure-local.py
-!/scripts/
-!/patches/
-!/records/
-__pycache__/
-*.pyc
-
-# Track the Chromium source repository, not local build/download directories.
 !/.gitmodules
+!/README.md
+!/cef-build
+!/config/
+!/docs/
+!/tools/
+!/tests/
+
 !/chromium/
 /chromium/*
+!/chromium/docs/
 !/chromium/src/
 
-# Pinned depot_tools source; runtime caches remain untracked inside it.
 !/depot_tools/
-
-# Private, LFS-backed archive of the pinned build tools and SDK.
 !/cef_build_tools/
+
+**/__pycache__/
+*.pyc
