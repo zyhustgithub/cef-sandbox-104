@@ -27,6 +27,24 @@ class BuildConfigurationTests(unittest.TestCase):
                 self.assertIn('mac_sdk_path="', rendered)
                 self.assertIn(f'target_cpu="{arch}"', rendered)
 
+    def test_only_macos11_uses_size_optimized_official_build(self):
+        macos11 = cef_build.gn_args(self.config, "macos11", "arm64")
+        macos12 = cef_build.gn_args(self.config, "macos12", "arm64")
+        self.assertTrue(macos11["is_official_build"])
+        self.assertTrue(macos11["enable_stripping"])
+        self.assertTrue(macos11["optimize_for_size"])
+        self.assertTrue(macos11["use_thin_lto"])
+        self.assertFalse(macos11["enable_reporting"])
+        self.assertNotIn("use_cups", macos11)
+        self.assertFalse(macos12["is_official_build"])
+        self.assertFalse(macos12["use_thin_lto"])
+        self.assertNotIn("enable_stripping", macos12)
+
+    def test_macos11_keeps_framework_resources(self):
+        profile = self.config["profiles"]["macos11"]
+        self.assertNotIn("locales", profile)
+        self.assertTrue(profile["strip_merged_binaries"])
+
     def test_tracked_configuration_has_no_machine_absolute_path(self):
         raw = cef_build.CONFIG_PATH.read_text()
         self.assertNotIn("/Users/", raw)

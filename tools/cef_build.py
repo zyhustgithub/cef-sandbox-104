@@ -272,7 +272,9 @@ def gn_literal(value) -> str:
 
 def gn_args(config: dict, profile: str, arch: str) -> Dict[str, object]:
     result = dict(config["common_gn_args"])
-    deployment = config["profiles"][profile]["deployment_target"]
+    profile_config = config["profiles"][profile]
+    result.update(profile_config.get("gn_args", {}))
+    deployment = profile_config["deployment_target"]
     result.update({
         "mac_deployment_target": deployment,
         "mac_min_system_version": deployment,
@@ -403,7 +405,30 @@ def sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
-def merge_frameworks(arm64: Path, x64: Path, output: Path) -> None:
+def symbol_counts(path: Path) -> dict:
+    """Count symbols without retaining the very large nm output in memory."""
+    try:
+        process = subprocess.Popen(
+            ["nm", "-m", str(path)], stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+            text=True,
+        )
+    except OSError as exc:
+        raise BuildError(f"Unable to inspect symbols in {path}: {exc}") from exc
+    total = 0
+    non_external = 0
+    assert process.stdout is not None
+    for line in process.stdout:
+        total += 1
+        if "non-external" in line:
+            non_external += 1
+    stderr = process.stderr.read().strip() if process.stderr else ""
+    if process.wait() != 0 and "no symbols" not in stderr.lower():
+        raise BuildError(f"Unable to inspect symbols in {path}: {stderr}")
+    return {"total": total, "non_external": non_external}
+
+
+def merge_frameworks(arm64: Path, x64: Path, output: Path,
+                     strip_binaries: bool = False) -> dict:
     roots = {"arm64": framework_root(arm64), "x64": framework_root(x64)}
     items = {arch: inventory(path) for arch, path in roots.items()}
     all_snapshots = set(SNAPSHOTS["arm64"]) | set(SNAPSHOTS["x64"])
@@ -434,11 +459,35 @@ def merge_frameworks(arm64: Path, x64: Path, output: Path) -> None:
             destination = output / name
             destination.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(items[arch][name], destination)
+    trimming = {"strip_command": ["xcrun", "strip", "-x", "-S"],
+                "enabled": strip_binaries, "mach_o": {}}
     for name in MACH_FILES:
         destination = output / name
         destination.parent.mkdir(parents=True, exist_ok=True)
         run(["lipo", "-create", str(items["arm64"][name]), str(items["x64"][name]),
              "-output", str(destination)])
+        entry = {
+            "inputs": {
+                "arm64_bytes": items["arm64"][name].stat().st_size,
+                "x86_64_bytes": items["x64"][name].stat().st_size,
+            },
+            "merged_before": {
+                "bytes": destination.stat().st_size,
+                "symbols": symbol_counts(destination),
+            },
+        }
+        if strip_binaries:
+            run(["xcrun", "strip", "-x", "-S", str(destination)])
+        entry["merged_after"] = {
+            "bytes": destination.stat().st_size,
+            "symbols": symbol_counts(destination),
+        }
+        trimming["mach_o"][name] = entry
+    return trimming
+
+
+def directory_size(path: Path) -> int:
+    return sum(item.stat().st_size for item in path.rglob("*") if item.is_file())
 
 
 def build_versions(path: Path) -> Tuple[List[str], List[str]]:
@@ -487,17 +536,19 @@ def merge_and_verify(config: dict, profile: str) -> dict:
     final_dir = ROOT / "out" / profile
     previous = state / "previous-output"
     try:
-        merge_frameworks(
+        profile_config = config["profiles"][profile]
+        trimming = merge_frameworks(
             active_output_dir(profile, "arm64") / FRAMEWORK_NAME,
             active_output_dir(profile, "x64") / FRAMEWORK_NAME,
             staged_framework,
+            strip_binaries=bool(profile_config.get("strip_merged_binaries", False)),
         )
         verification = verify_framework(
             staged_framework, config["profiles"][profile]["deployment_target"], config["sdk_version"]
         )
         hashes = {name: sha256(path) for name, path in sorted(inventory(staged_framework).items())}
         manifest = {
-            "format_version": 1,
+            "format_version": 2,
             "profile": profile,
             "chromium_version": config["chromium_version"],
             "cef_version": config["cef_version"],
@@ -512,6 +563,12 @@ def merge_and_verify(config: dict, profile: str) -> dict:
             "gn_args": {arch: gn_args(config, profile, arch)
                         for arch in config["architectures"]},
             "verification": verification,
+            "trimming": {
+                **trimming,
+                "disabled_features": profile_config.get("disabled_features", []),
+                "framework_total_bytes": directory_size(staged_framework),
+                "resources_preserved": True,
+            },
             "files": hashes,
         }
         save_json(stage_parent / "build-manifest.json", manifest)

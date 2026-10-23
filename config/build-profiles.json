@@ -10,7 +10,30 @@
   ],
   "profiles": {
     "macos11": {
-      "deployment_target": "11.0"
+      "deployment_target": "11.0",
+      "strip_merged_binaries": true,
+      "disabled_features": [
+        "reporting",
+        "browser_speech_service",
+        "speech_service",
+        "kerberos",
+        "reading_list"
+      ],
+      "gn_args": {
+        "is_official_build": true,
+        "enable_stripping": true,
+        "enable_dsyms": false,
+        "optimize_for_size": true,
+        "use_thin_lto": true,
+        "symbol_level": 0,
+        "blink_symbol_level": 0,
+        "v8_symbol_level": 0,
+        "enable_reporting": false,
+        "enable_browser_speech_service": false,
+        "enable_speech_service": false,
+        "use_kerberos": false,
+        "enable_reading_list": false
+      }
     },
     "macos12": {
       "deployment_target": "12.0"
