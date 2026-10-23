@@ -57,6 +57,19 @@ class BuildConfigurationTests(unittest.TestCase):
                 with self.assertRaisesRegex(cef_build.BuildError, "expected 12.3"):
                     cef_build._check_sdk(self.config)
 
+    def test_generated_api_hash_cleanup_only_restores_year_changes(self):
+        original = b"// Copyright (c) 2022 Owner\n#define HASH \"one\"\n"
+        with tempfile.TemporaryDirectory() as temporary:
+            header = Path(temporary) / "cef_api_hash.h"
+            header.write_bytes(original.replace(b"2022", b"2026"))
+            self.assertTrue(cef_build.restore_generated_api_hash_year(header, original))
+            self.assertEqual(original, header.read_bytes())
+
+            changed_hash = original.replace(b"2022", b"2026").replace(b"one", b"two")
+            header.write_bytes(changed_hash)
+            self.assertFalse(cef_build.restore_generated_api_hash_year(header, original))
+            self.assertEqual(changed_hash, header.read_bytes())
+
 
 if __name__ == "__main__":
     unittest.main()

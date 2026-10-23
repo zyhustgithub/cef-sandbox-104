@@ -25,6 +25,7 @@ ROOT = Path(__file__).resolve().parents[1]
 CONFIG_PATH = ROOT / "config/build-profiles.json"
 SOURCE = ROOT / "chromium/src"
 SDK = ROOT / "sdks/MacOSX12.3.sdk"
+CEF_API_HASH = SOURCE / "cef/include/cef_api_hash.h"
 FRAMEWORK_NAME = "Chromium Embedded Framework.framework"
 MACH_FILES = (
     "Chromium Embedded Framework",
@@ -315,6 +316,23 @@ def save_json(path: Path, value: dict) -> None:
     temp.replace(path)
 
 
+def _without_copyright_year(data: bytes) -> bytes:
+    pattern = re.compile(rb"\A(// Copyright \(c\) )\d{4}( [^\n]+\n)")
+    return pattern.sub(lambda match: match.group(1) + b"YEAR" + match.group(2), data, count=1)
+
+
+def restore_generated_api_hash_year(path: Path, original: bytes) -> bool:
+    """Restore a generated API hash header when only its copyright year changed."""
+    if not path.is_file():
+        return False
+    current = path.read_bytes()
+    if current == original or _without_copyright_year(current) != _without_copyright_year(original):
+        return False
+    path.write_bytes(original)
+    print(f"Restored generated copyright-only change: {path}")
+    return True
+
+
 def preflight_build(config: dict) -> None:
     _, errors = inspect_requirements(config)
     if errors:
@@ -330,36 +348,41 @@ def cmd_build(args: argparse.Namespace) -> None:
     gn = SOURCE / "buildtools/mac/gn"
     ninja = ROOT / "depot_tools/ninja"
     started = int(time.time())
-    with build_lock(profile) as state:
-        status_path = state / "status.json"
-        log_path = state / "build.log"
-        status = {"profile": profile, "state": "running", "jobs": jobs,
-                  "started_at": started, "architectures": {}}
-        save_json(status_path, status)
-        try:
-            with log_path.open("a") as log:
-                log.write(f"\n=== {profile} build started {time.ctime()} ===\n")
-                for arch in config["architectures"]:
-                    out = active_output_dir(profile, arch)
-                    out.mkdir(parents=True, exist_ok=True)
-                    (out / "args.gn").write_text(render_gn_args(config, profile, arch))
-                    status["architectures"][arch] = "configuring"
-                    save_json(status_path, status)
-                    run([str(gn), "gen", f"out/{out.name}"], cwd=SOURCE, env=env, stdout=log)
-                    status["architectures"][arch] = "building"
-                    save_json(status_path, status)
-                    run([str(ninja), "-C", f"out/{out.name}", "cef_framework",
-                         "-j", str(jobs)], cwd=SOURCE, env=env, stdout=log)
-                    status["architectures"][arch] = "complete"
-                    save_json(status_path, status)
-            manifest = merge_and_verify(config, profile)
-            status.update(state="complete", finished_at=int(time.time()),
-                          output=manifest["output"], manifest=manifest["manifest"])
+    original_api_hash = CEF_API_HASH.read_bytes()
+    try:
+        with build_lock(profile) as state:
+            status_path = state / "status.json"
+            log_path = state / "build.log"
+            status = {"profile": profile, "state": "running", "jobs": jobs,
+                      "started_at": started, "architectures": {}}
             save_json(status_path, status)
-        except BaseException:
-            status.update(state="failed", finished_at=int(time.time()))
-            save_json(status_path, status)
-            raise
+            try:
+                with log_path.open("a") as log:
+                    log.write(f"\n=== {profile} build started {time.ctime()} ===\n")
+                    for arch in config["architectures"]:
+                        out = active_output_dir(profile, arch)
+                        out.mkdir(parents=True, exist_ok=True)
+                        (out / "args.gn").write_text(render_gn_args(config, profile, arch))
+                        status["architectures"][arch] = "configuring"
+                        save_json(status_path, status)
+                        run([str(gn), "gen", f"out/{out.name}"], cwd=SOURCE, env=env, stdout=log)
+                        status["architectures"][arch] = "building"
+                        save_json(status_path, status)
+                        run([str(ninja), "-C", f"out/{out.name}", "cef_framework",
+                             "-j", str(jobs)], cwd=SOURCE, env=env, stdout=log)
+                        status["architectures"][arch] = "complete"
+                        save_json(status_path, status)
+                restore_generated_api_hash_year(CEF_API_HASH, original_api_hash)
+                manifest = merge_and_verify(config, profile)
+                status.update(state="complete", finished_at=int(time.time()),
+                              output=manifest["output"], manifest=manifest["manifest"])
+                save_json(status_path, status)
+            except BaseException:
+                status.update(state="failed", finished_at=int(time.time()))
+                save_json(status_path, status)
+                raise
+    finally:
+        restore_generated_api_hash_year(CEF_API_HASH, original_api_hash)
     print(f"Build complete: {ROOT / 'out' / profile / FRAMEWORK_NAME}")
 
 

@@ -39,7 +39,7 @@
     "v8_enable_sandbox": false
   },
   "source_revisions": {
-    "chromium/src": "a97d0d1fa5173c2140f4836f2db034fe5d785b8d",
+    "chromium/src": "ec8aa7d84eabb560dfee99d162d9ff45db1e7a49",
     "chromium/src/cef": "ee9413170c23a4e0b363ccaa4379b8dfe2f2ca8b",
     "chromium/src/v8": "74d856b8309dbd279a1a8f936733d14486924ca9",
     "chromium/src/third_party/google_toolbox_for_mac/src": "42b12f10cd8342f5cb41a1e3e3a2f13fd9943b0d",
